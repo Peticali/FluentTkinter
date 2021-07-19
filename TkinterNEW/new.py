@@ -6,7 +6,6 @@ import ctypes
 #Colors
 from BlurWindow.blurWindow import GlobalBlur
 
-global DRAG
 DRAG = False
 
 TITLEBAR_SIZE = ctypes.windll.user32.GetSystemMetrics(4)
