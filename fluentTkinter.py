@@ -10,16 +10,13 @@ root.wm_attributes("-transparent", 'green')
 root.geometry('500x400')
 root.update()
 
-global HWND
 HWND = ctypes.windll.user32.GetForegroundWindow()
 
 new.BlurWorkAround(root,HWND)
-
 new.NewPanel()
 
 l = new.NewLabel(text='New Widgets')
 l.place(relx=.4,y=1)
-
 
 #NewEntry
 e = new.NewEntry(width=9)
