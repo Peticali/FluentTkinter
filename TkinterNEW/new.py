@@ -2,7 +2,7 @@
 from tkinter import *
 from tkinter.font import Font
 from PIL import Image, ImageTk
-import ctypes
+import ctypes,platform
 #Colors
 from BlurWindow.blurWindow import GlobalBlur
 
@@ -27,9 +27,9 @@ DROPDOWN_ACTIVE_BACKGROUND = '#3e3d3c'
 DROPDOWN_BACKGROUND = '#000000'
 DROPDOWN_MENU_BACKGROUND = '#2b2b2b'
 
-def NewButton(**kw):
-    UWPFONT = Font(family='Segoe MDL2',size=11)
-    Border = LabelFrame(
+def NewButton(parent=None,**kw):
+    UWPFONT = Font(family='arial',size=11)
+    Border = LabelFrame(parent,
                 bd=2, 
                 bg=BUTTON_BORDER_NOTFOCUSED, 
                 relief=FLAT)
@@ -53,7 +53,7 @@ def NewButton(**kw):
     return Border,b
 
 def NewEntry(**kw):
-    UWPFONT = Font(family='Segoe MDL2',size=11)
+    UWPFONT = Font(family='arial',size=11)
     Border = LabelFrame(
                 bd=2, 
                 bg=ENTRY_BORDER_NOTFOCUSED, 
@@ -106,7 +106,7 @@ def CreateDropDownOptions(text,window,UWPFONT,var:StringVar):
 def CreateDropDownMenu(var,objs,b:Button):
     root = Tk()
     root.configure(bg=DROPDOWN_MENU_BACKGROUND)
-    UWPFONT = Font(family='Segoe MDL2',size=11)
+    UWPFONT = Font(family='arial',size=11)
     for i in objs:
         CreateDropDownOptions(i,root,UWPFONT,var)
     rootsize = len(objs) * 20
@@ -118,7 +118,7 @@ def CreateDropDownMenu(var,objs,b:Button):
     root.mainloop()
 
 def NewDropDown(objs:list,variable:StringVar,**kw):
-    UWPFONT = Font(family='Segoe MDL2',size=11)
+    UWPFONT = Font(family='arial',size=11)
     Border = LabelFrame(
                 bd=2, 
                 bg=BUTTON_BORDER_NOTFOCUSED, 
@@ -169,14 +169,18 @@ def stop_drag(HWND):
 
 def BlurWorkAround(window:Tk,HWND:int):
     GlobalBlur(HWND,Acrylic=True)
-    window.bind('<Configure>', lambda e:dragging(e,window,HWND))
+    try:release = int(float(platform.release()))
+    except:release=False
+    
+    if release == 10:
+        window.bind('<Configure>', lambda e:dragging(e,window,HWND))
 
 def NewPanel(relx=.4,rely=0,relheight=1,relwidth=1):
     l = Label(bg='#000000')
     l.place(relx=relx,rely=rely,relheight=relheight,relwidth=relwidth)
 
 def NewLabel(size=19,**kw):
-    UWPFONT = Font(family='Segoe MDL2',size=size)
+    UWPFONT = Font(family='arial',size=size)
     l = Label(font=UWPFONT,bg=BACKGROUND_COLOR,fg=FOREGROUND_COLOR)
     l.configure(kw)
     
