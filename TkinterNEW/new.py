@@ -3,12 +3,12 @@ from tkinter import *
 from tkinter.font import Font
 from PIL import Image, ImageTk
 import ctypes,platform
-#Colors
 from BlurWindow.blurWindow import GlobalBlur
 
 DRAG = False
-
 TITLEBAR_SIZE = ctypes.windll.user32.GetSystemMetrics(4)
+
+#Colors
 FOREGROUND_COLOR = '#FFFFFF'
 BACKGROUND_COLOR = '#000000'
 
@@ -185,3 +185,13 @@ def NewLabel(size=19,**kw):
     l.configure(kw)
     
     return l
+
+def TranparentWindow(Window:Tk,color='green'):
+    Window.config(bg=color)
+    Window.wm_attributes("-transparent", color)
+
+def GetHWNDTk(Window:Tk):
+    Window.focus_force()
+    Window.update()
+    HWND = ctypes.windll.user32.GetForegroundWindow()
+    return HWND

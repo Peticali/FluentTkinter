@@ -4,15 +4,11 @@ import ctypes
 from TkinterNEW import new
 
 root = Tk()
-root.config(bg='green')
 
-root.wm_attributes("-transparent", 'green')
 root.geometry('500x400')
-root.update()
 
-HWND = ctypes.windll.user32.GetForegroundWindow()
-
-new.BlurWorkAround(root,HWND)
+new.TranparentWindow(root)
+new.BlurWorkAround(root,new.GetHWNDTk(root))
 new.NewPanel()
 
 l = new.NewLabel(text='New Widgets')
