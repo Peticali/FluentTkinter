@@ -185,3 +185,15 @@ def NewLabel(size=19,**kw):
     l.configure(kw)
     
     return l
+
+
+def TranparentWindow(Window:Tk,color='green'):
+    Window.config(bg=color)
+    Window.wm_attributes("-transparent", color)
+
+def GetHWNDTk(Window:Tk):
+    Window.focus_force()
+    Window.update()
+    HWND = ctypes.windll.user32.GetForegroundWindow()
+    return HWND 
+    return l 
