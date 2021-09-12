@@ -1,4 +1,3 @@
-
 from tkinter import *
 import ctypes
 from TkinterNEW import new

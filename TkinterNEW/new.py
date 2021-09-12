@@ -3,12 +3,11 @@ from tkinter import *
 from tkinter.font import Font
 from PIL import Image, ImageTk
 import ctypes,platform
-#Colors
 from BlurWindow.blurWindow import GlobalBlur
 
 DRAG = False
 
-TITLEBAR_SIZE = ctypes.windll.user32.GetSystemMetrics(4)
+#Colors
 FOREGROUND_COLOR = '#FFFFFF'
 BACKGROUND_COLOR = '#000000'
 
