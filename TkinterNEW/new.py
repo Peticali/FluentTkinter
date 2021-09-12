@@ -3,12 +3,12 @@ from tkinter import *
 from tkinter.font import Font
 from PIL import Image, ImageTk
 import ctypes,platform
+#Colors
 from BlurWindow.blurWindow import GlobalBlur
 
 DRAG = False
-TITLEBAR_SIZE = ctypes.windll.user32.GetSystemMetrics(4)
 
-#Colors
+TITLEBAR_SIZE = ctypes.windll.user32.GetSystemMetrics(4)
 FOREGROUND_COLOR = '#FFFFFF'
 BACKGROUND_COLOR = '#000000'
 
@@ -52,9 +52,9 @@ def NewButton(parent=None,**kw):
     
     return Border,b
 
-def NewEntry(**kw):
+def NewEntry(parent=None,**kw):
     UWPFONT = Font(family='arial',size=11)
-    Border = LabelFrame(
+    Border = LabelFrame(parent,
                 bd=2, 
                 bg=ENTRY_BORDER_NOTFOCUSED, 
                 relief=FLAT)
@@ -185,13 +185,3 @@ def NewLabel(size=19,**kw):
     l.configure(kw)
     
     return l
-
-def TranparentWindow(Window:Tk,color='green'):
-    Window.config(bg=color)
-    Window.wm_attributes("-transparent", color)
-
-def GetHWNDTk(Window:Tk):
-    Window.focus_force()
-    Window.update()
-    HWND = ctypes.windll.user32.GetForegroundWindow()
-    return HWND
