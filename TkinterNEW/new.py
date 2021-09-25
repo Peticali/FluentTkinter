@@ -2,7 +2,7 @@
 from tkinter import *
 from tkinter.font import Font
 from PIL import Image, ImageTk
-import ctypes,platform
+import ctypes,platform,win32gui,sys
 from BlurWindow.blurWindow import GlobalBlur
 
 DRAG = False
@@ -164,14 +164,14 @@ def dragging(event,root,HWND):
 def stop_drag(HWND):
     global DRAG
     DRAG = False
-    GlobalBlur(HWND,Acrylic=True)
+    GlobalBlur(HWND,Acrylic=True,Dark=True)
 
 def BlurWorkAround(window:Tk,HWND:int):
-    GlobalBlur(HWND,Acrylic=True)
+    GlobalBlur(HWND,Acrylic=True,Dark=True)
     try:release = int(float(platform.release()))
     except:release=False
     
-    if release == 10:
+    if release == 10 and IsWin11() == False:
         window.bind('<Configure>', lambda e:dragging(e,window,HWND))
 
 def NewPanel(relx=.4,rely=0,relheight=1,relwidth=1):
@@ -182,17 +182,24 @@ def NewLabel(size=19,**kw):
     UWPFONT = Font(family='arial',size=size)
     l = Label(font=UWPFONT,bg=BACKGROUND_COLOR,fg=FOREGROUND_COLOR)
     l.configure(kw)
-    
     return l
 
+def IsWin11():
+    if sys.getwindowsversion().build > 20000:return True
+    else:return False
 
 def TranparentWindow(Window:Tk,color='green'):
     Window.config(bg=color)
     Window.wm_attributes("-transparent", color)
+
+def GetHWNDNew(Window:Tk):
+    Window.update()
+    hwnd = win32gui.FindWindow(None, Window.title())
+    #print(hwnd)
+    return hwnd
 
 def GetHWNDTk(Window:Tk):
     Window.focus_force()
     Window.update()
     HWND = ctypes.windll.user32.GetForegroundWindow()
     return HWND 
-    return l 

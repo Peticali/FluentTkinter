@@ -1,13 +1,12 @@
 from tkinter import *
-import ctypes
 from TkinterNEW import new
 
 root = Tk()
-
 root.geometry('500x400')
 
+
 new.TranparentWindow(root)
-new.BlurWorkAround(root,new.GetHWNDTk(root))
+new.BlurWorkAround(root,new.GetHWNDNew(root))
 new.NewPanel()
 
 l = new.NewLabel(text='New Widgets')
